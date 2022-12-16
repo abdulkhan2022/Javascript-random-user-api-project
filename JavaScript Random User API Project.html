@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Random User API Project</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(213, 232, 232);
+            border-radius: 5px;
+            width: 450px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .details {
+            color: rgb(255, 255, 255);
+            padding: 5px 50px;
+            margin: 5px;
+            background-color: gray;
+            border-radius: 5px;
+        }
+        .mainheading{
+            color: black;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 20px;
+            font-size: 30px;
+        }
+        h5{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mainheading">In this page I have used an Api and and created a system to generate random User Details.</div>
+    <div class="container">
+        <img alt="Random Image from unsplash" id="image">
+        <div id="firstname" class="details">Firstname: </div>
+        <div id="lastname" class="details">Lastname:</div>
+        <div id="location" class="details">location:</div>
+        <div id="phone" class="details">Phone:</div>
+        <div id="email" class="details">Emial:</div>
+        <button onclick="ajaxdemo()"> Show Next User</button>
+    </div>
+    <h5>Design by Abdul Rahman Khan.</h5>
+
+    <script>
+        let data;
+        function ajsxdemo() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.open('GET', 'https://randomuser.me/api/?results=10', true)
+            xhttp.send()
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    // console.log(JSON.parse(this.responseText).results[0].location.country + " " + JSON.parse(this.responseText).results[0].location.state)
+
+                    data = (JSON.parse(this.responseText).results[0])
+                    console.log(data)
+                    let firstname = document.getElementById('firstname').innerText = ("First Name : " + data.name.last);
+                    let lastname = document.getElementById('lastname').innerText = ("Last Name : " + data.name.first);
+                    let location = document.getElementById('location').innerText = ("Location: " + data.location.country);
+                    let Phone = document.getElementById('phone').innerText = ("Phone: " + data.phone);
+                    let email = document.getElementById('email').innerText = ("Email: " + data.email);
+                    let image = document.getElementById('image').setAttribute("src", data.picture.large)
+                }
+            }
+        }
+        ajsxdemo()
+
+
+    </script>
+</body>
+
+</html>
